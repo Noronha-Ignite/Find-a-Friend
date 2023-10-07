@@ -1,0 +1,33 @@
+{
+  "name": "find-a-friend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/server.ts",
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "start": "node dist/server.js",
+    "test": "vitest run --dir src/services",
+    "pretest:e2e": "./setup-environment-test.sh",
+    "test:e2e": "vitest run --dir src/http",
+    "test:e2e:watch": "vitest watch --dir src/http",
+    "test:watch": "vitest --dir src/services",
+    "test:coverage": "vitest --coverage",
+    "test:ui": "vitest --ui",
+    "build": "tsup src"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "16.3.1",
+    "fastify": "^4.23.2",
+    "zod": "3.22.4"
+  },
+  "devDependencies": {
+    "@rocketseat/eslint-config": "2.1.0",
+    "prisma": "5.4.1",
+    "tsx": "3.13.0",
+    "typescript": "5.2.2",
+    "vitest": "0.34.6"
+  }
+}
