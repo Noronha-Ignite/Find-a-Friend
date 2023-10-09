@@ -1,0 +1,92 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum PetType {
+  CAT
+  DOG
+}
+
+enum Age {
+  NEW_BORN
+  YOUNG
+  GROWN_UP
+}
+
+enum Size {
+  SMALLER
+  SMALL
+  MEDIUM
+  BIG
+}
+
+enum Level {
+  VERY_LOW
+  LOW
+  MEDIUM
+  HIGH
+  VERY_HIGH
+}
+
+enum Ambient {
+  SPACIOUS
+  TIGHT
+  ANY
+}
+
+model Pet {
+  id                     String                   @id() @default(uuid())
+  name                   String
+  about                  String                   @db.Text()
+  type                   PetType
+  age                    Age
+  size                   Size
+  energy_level           Level
+  independency_level     Level
+  organization_id        String
+  organization           Organization             @relation(fields: [organization_id], references: [id])
+  petImages              PetImage[]
+  PetAdoptionRequirement PetAdoptionRequirement[]
+
+  @@index([organization_id])
+}
+
+model PetImage {
+  id        String @id() @default(uuid())
+  pet_id    String
+  image_url String
+
+  pet Pet @relation(fields: [pet_id], references: [id])
+
+  @@index([pet_id])
+}
+
+model PetAdoptionRequirement {
+  id          String @id() @default(uuid())
+  pet_id      String
+  requirement String
+
+  pet Pet @relation(fields: [pet_id], references: [id])
+
+  @@index([pet_id])
+}
+
+model Organization {
+  id            String @id() @default(uuid())
+  email         String @unique
+  password_hash String
+  cep           String
+  address       String
+  latitude      Int
+  longitude     Int
+  whatsapp      String
+  pets          Pet[]
+}
