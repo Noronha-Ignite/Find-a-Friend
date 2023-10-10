@@ -18,6 +18,7 @@ describe('Create organization service', async () => {
     const { organization } = await sut.execute({
       address: faker.location.streetAddress(),
       cep: faker.location.zipCode(),
+      city: faker.location.city(),
       email: faker.internet.email(),
       latitude: faker.location.latitude(),
       longitude: faker.location.longitude(),

@@ -16,8 +16,8 @@ let sut: CreatePetService
 
 describe('Create Pet service', async () => {
   beforeEach(async () => {
-    petRepository = new InMemoryPetRepository()
     orgRepository = new InMemoryOrgRepository()
+    petRepository = new InMemoryPetRepository(orgRepository)
     sut = new CreatePetService(petRepository, orgRepository)
   })
 

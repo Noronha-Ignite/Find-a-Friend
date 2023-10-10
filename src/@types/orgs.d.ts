@@ -3,20 +3,15 @@ type Organization = {
   email: string
   password_hash: string
   cep: string
+  city: string
   address: string
   latitude: number
   longitude: number
   whatsapp: string
 }
 
-type OrgCreateBody = {
-  email: string
+type OrgCreateBody = Omit<Organization, 'id' | 'password_hash'> & {
   password: string
-  cep: string
-  address: string
-  latitude: number
-  longitude: number
-  whatsapp: string
 }
 
 type OrgCreatePayload = Omit<OrgCreateBody, 'password'> & {

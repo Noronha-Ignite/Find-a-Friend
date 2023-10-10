@@ -84,6 +84,7 @@ model Organization {
   email         String @unique
   password_hash String
   cep           String
+  city          String
   address       String
   latitude      Int
   longitude     Int

@@ -22,4 +22,10 @@ export class InMemoryOrgRepository implements OrgRepository {
   async findById(id: string) {
     return this._orgs.find((org) => org.id === id) ?? null
   }
+
+  async findManyByCity(city: string) {
+    return this._orgs.filter((org) =>
+      org.city.toLowerCase().includes(city.toLowerCase()),
+    )
+  }
 }

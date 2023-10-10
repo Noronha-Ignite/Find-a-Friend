@@ -31,3 +31,11 @@ type PetCreateBody = {
 }
 
 type PetCreatePayload = PetCreateBody
+
+type FetchPetsParams = {
+  city: string
+  age?: PetAge
+  energyLevel?: Level
+  independencyLevel?: Level
+  size?: PetSize
+}

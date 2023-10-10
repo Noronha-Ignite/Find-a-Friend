@@ -23,6 +23,7 @@ describe('Create organization service', async () => {
       email,
       address: faker.location.streetAddress(),
       cep: faker.location.zipCode(),
+      city: faker.location.city(),
       latitude: faker.location.latitude(),
       longitude: faker.location.longitude(),
       whatsapp: faker.phone.number(),
