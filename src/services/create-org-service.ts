@@ -27,6 +27,6 @@ export class CreateOrgService {
 
     const sanitizedOrganization = sanitizeOrganization(organization)
 
-    return sanitizedOrganization
+    return { organization: sanitizedOrganization }
   }
 }
