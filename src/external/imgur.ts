@@ -1,5 +1,11 @@
 import { env } from '../env'
 
+type UploadImageImgurResponse = {
+  data: {
+    link: string
+  }
+}
+
 export const uploadImageImgur = async (image: Buffer) => {
   const response = await fetch(env.IMGUR_API_ENDPOINT, {
     method: 'POST',
@@ -10,7 +16,7 @@ export const uploadImageImgur = async (image: Buffer) => {
     body: JSON.stringify({ image: image.toString('base64') }),
   })
 
-  const responseBody = await response.json()
+  const responseBody: UploadImageImgurResponse = await response.json()
 
-  return responseBody.data.link as string
+  return responseBody.data.link
 }
