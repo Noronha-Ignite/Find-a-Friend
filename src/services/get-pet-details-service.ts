@@ -3,17 +3,17 @@ import { PetRepository } from '../repositories/pet-repository'
 import { OrgNotFoundError } from './errors/org-not-found-error'
 import { ResourceNotFoundError } from './errors/resource-not-found-error'
 
-type AdoptPetServiceParams = {
+type GetPetDetailsServiceParams = {
   petId: string
 }
 
-export class AdoptPetService {
+export class GetPetDetailsService {
   constructor(
     private petRepository: PetRepository,
     private orgRepository: OrgRepository,
   ) {}
 
-  async execute({ petId }: AdoptPetServiceParams) {
+  async execute({ petId }: GetPetDetailsServiceParams) {
     const pet = await this.petRepository.findById(petId)
 
     if (!pet) {
@@ -25,15 +25,5 @@ export class AdoptPetService {
     if (!org) {
       throw new OrgNotFoundError()
     }
-
-    const customMessage = encodeURIComponent(
-      `Hey! I'd like to adopt the ${pet.name}!`,
-    )
-
-    const formattedNumber = org.whatsapp.replace(/\D/g, '')
-
-    const whatsappUrl = `https://api.whatsapp.com/send?phone=${formattedNumber}&text=${customMessage}`
-
-    return { whatsappUrl }
   }
 }

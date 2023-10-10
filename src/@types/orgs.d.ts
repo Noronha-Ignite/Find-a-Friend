@@ -14,6 +14,4 @@ type OrgCreateBody = Omit<Organization, 'id' | 'password_hash'> & {
   password: string
 }
 
-type OrgCreatePayload = Omit<OrgCreateBody, 'password'> & {
-  password_hash: string
-}
+type OrgCreatePayload = Omit<Organization, 'id'>

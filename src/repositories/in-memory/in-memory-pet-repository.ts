@@ -20,7 +20,7 @@ export class InMemoryPetRepository implements PetRepository {
   }
 
   async findById(id: string) {
-    return this._pets.find((pet) => pet.id === id)
+    return this._pets.find((pet) => pet.id === id) ?? null
   }
 
   async findManyFiltered(params: FetchPetsParams) {

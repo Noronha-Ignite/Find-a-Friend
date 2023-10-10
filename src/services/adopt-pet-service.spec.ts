@@ -28,7 +28,6 @@ describe('Adopt pet service', async () => {
     const { id: petId } = await createPet(petRepository, orgId)
 
     const { whatsappUrl } = await sut.execute({
-      orgId,
       petId,
     })
 
@@ -37,37 +36,19 @@ describe('Adopt pet service', async () => {
     )
   })
 
-  it('should not be able to adopt org does not exist', async () => {
+  it('should not be able to adopt if org does not exist', async () => {
     const { id: petId } = await createPet(petRepository, 'non-existing-org-id')
 
     await expect(() =>
       sut.execute({
-        orgId: 'non-existing-org-id',
         petId,
       }),
     ).rejects.toBeInstanceOf(OrgNotFoundError)
   })
 
-  it('should not be able to adopt if pet is not from org', async () => {
-    const { id: orgId } = await createOrganization(orgRepository)
-    const { id: orgId2 } = await createOrganization(orgRepository)
-
-    const { id: petId } = await createPet(petRepository, orgId2)
-
-    await expect(() =>
-      sut.execute({
-        orgId,
-        petId,
-      }),
-    ).rejects.toBeInstanceOf(ResourceNotFoundError)
-  })
-
   it('should not be able to adopt if pet does not exist', async () => {
-    const { id: orgId } = await createOrganization(orgRepository)
-
     await expect(() =>
       sut.execute({
-        orgId,
         petId: 'non-existing-pet-id',
       }),
     ).rejects.toBeInstanceOf(ResourceNotFoundError)
