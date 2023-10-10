@@ -43,18 +43,18 @@ enum Ambient {
 }
 
 model Pet {
-  id                     String                   @id() @default(uuid())
-  name                   String
-  about                  String                   @db.Text()
-  type                   PetType
-  age                    Age
-  size                   Size
-  energy_level           Level
-  independency_level     Level
-  organization_id        String
-  organization           Organization             @relation(fields: [organization_id], references: [id])
-  petImages              PetImage[]
-  PetAdoptionRequirement PetAdoptionRequirement[]
+  id                      String                   @id() @default(uuid())
+  name                    String
+  about                   String                   @db.Text()
+  type                    PetType
+  age                     Age
+  size                    Size
+  energy_level            Level
+  independency_level      Level
+  organization_id         String
+  organization            Organization             @relation(fields: [organization_id], references: [id])
+  petImages               PetImage[]
+  petAdoptionRequirements PetAdoptionRequirement[]
 
   @@index([organization_id])
 }
