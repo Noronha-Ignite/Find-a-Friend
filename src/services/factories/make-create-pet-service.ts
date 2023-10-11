@@ -11,12 +11,12 @@ export const makeCreatePetService = (): CreatePetService => {
   const petAdoptionRequirementRepository =
     new PrismaPetAdoptionRequirementRepository()
 
-  const createPetService = new CreatePetService(
+  const service = new CreatePetService(
     petRepository,
     orgRepository,
     petImageRepository,
     petAdoptionRequirementRepository,
   )
 
-  return createPetService
+  return service
 }
