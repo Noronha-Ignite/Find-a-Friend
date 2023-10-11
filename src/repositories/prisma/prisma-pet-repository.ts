@@ -23,18 +23,23 @@ export class PrismaPetRepository implements PetRepository {
   async findManyFiltered(params: FetchPetsParams) {
     return await prisma.pet.findMany({
       where: {
-        organization: {
-          city: {
-            contains: params.city,
+        AND: [
+          {
+            organization: {
+              city: {
+                contains: params.city,
+              },
+            },
           },
-        },
-
-        OR: [
-          { age: params.age },
-          { size: params.size },
-          { energy_level: params.energyLevel },
-          { independency_level: params.independencyLevel },
-          { type: params.type },
+          {
+            OR: [
+              { age: params.age },
+              { size: params.size },
+              { energy_level: params.energyLevel },
+              { independency_level: params.independencyLevel },
+              { type: params.type },
+            ],
+          },
         ],
       },
     })

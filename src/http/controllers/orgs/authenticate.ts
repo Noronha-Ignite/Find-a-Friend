@@ -4,13 +4,16 @@ import { z } from 'zod'
 import { InvalidDataError } from '../../../services/errors/invalid-data-error'
 import { makeAuthenticateOrgService } from '../../../services/factories/make-authenticate-org-service'
 
-export const create = async (req: FastifyRequest, reply: FastifyReply) => {
-  const createOrgBodySchema = z.object({
+export const authenticate = async (
+  req: FastifyRequest,
+  reply: FastifyReply,
+) => {
+  const authenticateOrgBodySchema = z.object({
     email: z.string().email(),
     password: z.string(),
   })
 
-  const body = createOrgBodySchema.parse(req.body)
+  const body = authenticateOrgBodySchema.parse(req.body)
 
   const authenticateOrgService = makeAuthenticateOrgService()
 

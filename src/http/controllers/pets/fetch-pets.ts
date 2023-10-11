@@ -8,17 +8,15 @@ export const fetchPets = async (req: FastifyRequest, reply: FastifyReply) => {
   })
 
   const fetchPetsQuerySchema = z.object({
-    type: z.enum(['CAT', 'DOG']),
-    age: z.enum(['NEW_BORN', 'YOUNG', 'GROWN_UP']),
-    size: z.enum(['SMALLER', 'SMALL', 'MEDIUM', 'BIG']),
-    energyLevel: z.enum(['VERY_LOW', 'LOW', 'MEDIUM', 'HIGH', 'VERY_HIGH']),
-    independencyLevel: z.enum([
-      'VERY_LOW',
-      'LOW',
-      'MEDIUM',
-      'HIGH',
-      'VERY_HIGH',
-    ]),
+    type: z.enum(['CAT', 'DOG']).optional(),
+    age: z.enum(['NEW_BORN', 'YOUNG', 'GROWN_UP']).optional(),
+    size: z.enum(['SMALLER', 'SMALL', 'MEDIUM', 'BIG']).optional(),
+    energyLevel: z
+      .enum(['VERY_LOW', 'LOW', 'MEDIUM', 'HIGH', 'VERY_HIGH'])
+      .optional(),
+    independencyLevel: z
+      .enum(['VERY_LOW', 'LOW', 'MEDIUM', 'HIGH', 'VERY_HIGH'])
+      .optional(),
   })
 
   const { city } = fetchPetsParamsSchema.parse(req.params)
