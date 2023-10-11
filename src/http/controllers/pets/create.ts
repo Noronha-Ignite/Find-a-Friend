@@ -5,10 +5,6 @@ import { OrgNotFoundError } from '../../../services/errors/org-not-found-error'
 import { makeCreatePetService } from '../../../services/factories/make-create-pet-service'
 
 export const create = async (req: FastifyRequest, reply: FastifyReply) => {
-  const createPetParamsSchema = z.object({
-    orgId: z.string().uuid(),
-  })
-
   const createPetBodySchema = z.object({
     name: z.string(),
     about: z.string(),
@@ -34,7 +30,7 @@ export const create = async (req: FastifyRequest, reply: FastifyReply) => {
     ),
   })
 
-  const { orgId } = createPetParamsSchema.parse(req.params)
+  const orgId = req.user.sub
   const body = createPetBodySchema.parse(req.body)
 
   const createPetService = makeCreatePetService()
