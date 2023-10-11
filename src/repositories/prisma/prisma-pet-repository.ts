@@ -13,6 +13,10 @@ export class PrismaPetRepository implements PetRepository {
       where: {
         id,
       },
+      include: {
+        petImages: true,
+        petAdoptionRequirements: true,
+      },
     })
   }
 
@@ -30,6 +34,7 @@ export class PrismaPetRepository implements PetRepository {
           { size: params.size },
           { energy_level: params.energyLevel },
           { independency_level: params.independencyLevel },
+          { type: params.type },
         ],
       },
     })

@@ -43,4 +43,10 @@ type FetchPetsParams = {
   energyLevel?: Level
   independencyLevel?: Level
   size?: PetSize
+  type?: PetType
+}
+
+type PetWithImagesAndRequirements = Pet & {
+  petImages: PetImage[]
+  petAdoptionRequirements: PetAdoptionRequirement[]
 }

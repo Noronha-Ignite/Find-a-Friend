@@ -25,5 +25,7 @@ export class GetPetDetailsService {
     if (!org) {
       throw new OrgNotFoundError()
     }
+
+    return pet
   }
 }

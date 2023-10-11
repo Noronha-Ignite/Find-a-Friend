@@ -1,5 +1,3 @@
-import { faker } from '@faker-js/faker'
-
 import { beforeEach, describe, expect, it } from 'vitest'
 
 import { InMemoryOrgRepository } from '../repositories/in-memory/in-memory-org-repository'
@@ -11,16 +9,16 @@ import { PetAdoptionRequirementRepository } from '../repositories/pet-adoption-r
 import { PetImageRepository } from '../repositories/pet-image-repository'
 import { PetRepository } from '../repositories/pet-repository'
 import { createOrganization } from '../utils/tests/create-organization'
-import { CreatePetService } from './create-pet-service'
-import { OrgNotFoundError } from './errors/org-not-found-error'
+import { createPet } from '../utils/tests/create-pet'
+import { GetPetDetailsService } from './get-pet-details-service'
 
 let petRepository: PetRepository
 let orgRepository: OrgRepository
 let petImageRepository: PetImageRepository
 let petAdoptionRequirementRepository: PetAdoptionRequirementRepository
-let sut: CreatePetService
+let sut: GetPetDetailsService
 
-describe('Create Pet service', async () => {
+describe('Get pet details service', async () => {
   beforeEach(async () => {
     orgRepository = new InMemoryOrgRepository()
     petImageRepository = new InMemoryPetImageRepository()
@@ -32,51 +30,26 @@ describe('Create Pet service', async () => {
       petAdoptionRequirementRepository,
     )
 
-    sut = new CreatePetService(
-      petRepository,
-      orgRepository,
-      petImageRepository,
-      petAdoptionRequirementRepository,
-    )
+    sut = new GetPetDetailsService(petRepository, orgRepository)
   })
 
-  it('should be able to create a pet', async () => {
-    const { id } = await createOrganization(orgRepository)
-
-    const { pet } = await sut.execute({
-      about: faker.lorem.paragraphs(),
-      age: 'NEW_BORN',
-      energy_level: 'HIGH',
-      independency_level: 'LOW',
-      name: faker.person.firstName(),
-      size: 'SMALL',
-      type: 'DOG',
-      organization_id: id,
-      images: [],
-      requirements: [],
+  it('should be able to get pet details', async () => {
+    const { id: orgId } = await createOrganization(orgRepository, {
+      city: 'wonderful-city',
     })
+
+    const { id: petId } = await createPet(petRepository, orgId, {
+      name: 'Danger',
+    })
+
+    const pet = await sut.execute({ petId })
 
     expect(pet).toEqual(
       expect.objectContaining({
         id: expect.any(String),
+        petImages: [],
+        petAdoptionRequirements: [],
       }),
     )
-  })
-
-  it('should not create a pet if an invalid organization is provided', async () => {
-    await expect(() =>
-      sut.execute({
-        about: faker.lorem.paragraphs(),
-        age: 'NEW_BORN',
-        energy_level: 'HIGH',
-        independency_level: 'LOW',
-        name: faker.person.firstName(),
-        size: 'SMALL',
-        type: 'DOG',
-        organization_id: 'non-existent-org-id',
-        images: [],
-        requirements: [],
-      }),
-    ).rejects.toBeInstanceOf(OrgNotFoundError)
   })
 })
