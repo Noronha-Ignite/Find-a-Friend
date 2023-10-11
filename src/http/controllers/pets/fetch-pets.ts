@@ -31,5 +31,5 @@ export const fetchPets = async (req: FastifyRequest, reply: FastifyReply) => {
     city,
   })
 
-  return reply.status(201).send({ pets })
+  return reply.status(200).send({ pets })
 }

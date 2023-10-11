@@ -1,3 +1,4 @@
+import fastifyJwt from '@fastify/jwt'
 import fastifyMultipart from '@fastify/multipart'
 import fastify from 'fastify'
 import { ZodError } from 'zod'
@@ -9,6 +10,10 @@ export const app = fastify()
 
 app.register(fastifyMultipart, {
   attachFieldsToBody: 'keyValues',
+})
+
+app.register(fastifyJwt, {
+  secret: env.JWT_SECRET,
 })
 
 app.register(orgsRoutes)

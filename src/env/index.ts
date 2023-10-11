@@ -7,6 +7,7 @@ const envSchema = z.object({
   PORT: z.coerce.number().default(3333),
   IMGUR_CLIENT_ID: z.string(),
   IMGUR_API_ENDPOINT: z.string().url(),
+  JWT_SECRET: z.string(),
 })
 
 const _env = envSchema.safeParse(process.env)

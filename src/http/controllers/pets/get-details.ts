@@ -17,7 +17,7 @@ export const getDetails = async (req: FastifyRequest, reply: FastifyReply) => {
       petId,
     })
 
-    return reply.status(201).send({ pet })
+    return reply.status(200).send({ pet })
   } catch (err) {
     if (
       err instanceof ResourceNotFoundError ||

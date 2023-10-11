@@ -19,6 +19,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@fastify/jwt": "7.2.2",
     "@fastify/multipart": "8.0.0",
     "@prisma/client": "5.4.1",
     "bcryptjs": "2.4.3",
