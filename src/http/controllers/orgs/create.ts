@@ -27,7 +27,17 @@ export const create = async (req: FastifyRequest, reply: FastifyReply) => {
   try {
     const { organization } = await createOrgService.execute(body)
 
-    return reply.status(201).send({ organization })
+    const token = await reply.jwtSign(
+      {},
+      {
+        sign: {
+          sub: organization.id,
+          expiresIn: '1d',
+        },
+      },
+    )
+
+    return reply.status(201).send({ token })
   } catch (err) {
     if (err instanceof EmailAlreadyExistsError) {
       return reply.status(400).send({ message: err.message })
